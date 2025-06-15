@@ -1,51 +1,51 @@
 #include "VectorStack.h"
 
-// Метод увеличения вместимости
+// РњРµС‚РѕРґ СѓРІРµР»РёС‡РµРЅРёСЏ РІРјРµСЃС‚РёРјРѕСЃС‚Рё
 void VectorStack::reserve(int newCapacity) {
-    if (newCapacity <= capacity) return;      // Новая вместимость должна быть не больше текущей
-    Stack* newMass = new Stack[newCapacity];  // Создание нового массива с новой вместимостью
-    for (int i = 0; i < lenght; ++i) newMass[i] = data[i]; // Копирует элементы из старого массива в новый
-    delete[] data;           // Освобождает память старого массива
-    data = newMass;          // Обновляет указатель на новый массив
-    capacity = newCapacity;  // Обновляет значение вместимости
+    if (newCapacity <= capacity) return;      // РќРѕРІР°СЏ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РЅРµ Р±РѕР»СЊС€Рµ С‚РµРєСѓС‰РµР№
+    Stack* newMass = new Stack[newCapacity];  // РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РјР°СЃСЃРёРІР° СЃ РЅРѕРІРѕР№ РІРјРµСЃС‚РёРјРѕСЃС‚СЊСЋ
+    for (int i = 0; i < lenght; ++i) newMass[i] = data[i]; // РљРѕРїРёСЂСѓРµС‚ СЌР»РµРјРµРЅС‚С‹ РёР· СЃС‚Р°СЂРѕРіРѕ РјР°СЃСЃРёРІР° РІ РЅРѕРІС‹Р№
+    delete[] data;           // РћСЃРІРѕР±РѕР¶РґР°РµС‚ РїР°РјСЏС‚СЊ СЃС‚Р°СЂРѕРіРѕ РјР°СЃСЃРёРІР°
+    data = newMass;          // РћР±РЅРѕРІР»СЏРµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅРѕРІС‹Р№ РјР°СЃСЃРёРІ
+    capacity = newCapacity;  // РћР±РЅРѕРІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІРјРµСЃС‚РёРјРѕСЃС‚Рё
 }
 
-// Конструктор копирования
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 VectorStack::VectorStack(const VectorStack& old) : data(nullptr), lenght(old.lenght), capacity(old.capacity) {
     if (capacity) {
         data = new Stack[capacity];
-        for (int i = 0; i < lenght; ++i) data[i] = old.data[i]; // Копирует элементы
+        for (int i = 0; i < lenght; ++i) data[i] = old.data[i]; // РљРѕРїРёСЂСѓРµС‚ СЌР»РµРјРµРЅС‚С‹
     }
 }
 
-// Оператор присваивания
+// РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 VectorStack& VectorStack::operator=(const VectorStack& old) {
-    if (this == &old) return *this; // Проверяет на самоприсваивание
-    delete[] data;                  // Освобождает текущие данные
+    if (this == &old) return *this; // РџСЂРѕРІРµСЂСЏРµС‚ РЅР° СЃР°РјРѕРїСЂРёСЃРІР°РёРІР°РЅРёРµ
+    delete[] data;                  // РћСЃРІРѕР±РѕР¶РґР°РµС‚ С‚РµРєСѓС‰РёРµ РґР°РЅРЅС‹Рµ
     lenght = old.lenght;
     capacity = old.capacity;
-    data = capacity ? new Stack[capacity] : nullptr;         // Выделяет новую память
-    for (int i = 0; i < lenght; ++i) data[i] = old.data[i];  // Копирует элементы
+    data = capacity ? new Stack[capacity] : nullptr;         // Р’С‹РґРµР»СЏРµС‚ РЅРѕРІСѓСЋ РїР°РјСЏС‚СЊ
+    for (int i = 0; i < lenght; ++i) data[i] = old.data[i];  // РљРѕРїРёСЂСѓРµС‚ СЌР»РµРјРµРЅС‚С‹
     return *this;
 }
 
-// Деструктор
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 VectorStack::~VectorStack() { delete[] data; }
 
-// Методы доступа:
-int VectorStack::size() const { return lenght; }         // Возвращает текущий размер
-bool VectorStack::empty() const { return lenght == 0; }  // Проверяет на пустоту
+// РњРµС‚РѕРґС‹ РґРѕСЃС‚СѓРїР°:
+int VectorStack::size() const { return lenght; }         // Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ
+bool VectorStack::empty() const { return lenght == 0; }  // РџСЂРѕРІРµСЂСЏРµС‚ РЅР° РїСѓСЃС‚РѕС‚Сѓ
 
 
-// Операторы доступа к стекам:
-Stack& VectorStack::operator[](int i) { return data[i]; }              // Для изменения
-const Stack& VectorStack::operator[](int i) const { return data[i]; }  // Для чтения
+// РћРїРµСЂР°С‚РѕСЂС‹ РґРѕСЃС‚СѓРїР° Рє СЃС‚РµРєР°Рј:
+Stack& VectorStack::operator[](int i) { return data[i]; }              // Р”Р»СЏ РёР·РјРµРЅРµРЅРёСЏ
+const Stack& VectorStack::operator[](int i) const { return data[i]; }  // Р”Р»СЏ С‡С‚РµРЅРёСЏ
 
-// Добавление стека в конец
+// Р”РѕР±Р°РІР»РµРЅРёРµ СЃС‚РµРєР° РІ РєРѕРЅРµС†
 void VectorStack::push_back(const Stack& add) {
-    if (lenght == capacity) reserve(capacity ? capacity * 2 : 1);  // Увеличивает вместимость при необходимости
-    data[lenght++] = add;  // Добавляет элемент и увеличивает длину
+    if (lenght == capacity) reserve(capacity ? capacity * 2 : 1);  // РЈРІРµР»РёС‡РёРІР°РµС‚ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё
+    data[lenght++] = add;  // Р”РѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ Рё СѓРІРµР»РёС‡РёРІР°РµС‚ РґР»РёРЅСѓ
 }
 
-// Удаление последнего стека
+// РЈРґР°Р»РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЃС‚РµРєР°
 void VectorStack::pop_back() { if (lenght) --lenght; }
