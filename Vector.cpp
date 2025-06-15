@@ -1,50 +1,50 @@
 #include "VectorStack.h"
 
-// Увеличивает вместимость массива
+// РЈРІРµР»РёС‡РёРІР°РµС‚ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ РјР°СЃСЃРёРІР°
 void Vector::reserve(int newCap) {
-    if (newCap <= capacity) return;  // Новая вместимость должна быть не больше текущей
-    int* newMass = new int[newCap];  // Создание нового массива с новой вместимостью
-    for (int i = 0; i < length; ++i) newMass[i] = data[i];  // Копирует элементы из старого массива в новый
-    delete[] data;      // Освобождает память старого массива
-    data = newMass;     // Обновляет указатель на новый массив
-    capacity = newCap;  // Обновляет значение вместимости
+    if (newCap <= capacity) return;  // РќРѕРІР°СЏ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РЅРµ Р±РѕР»СЊС€Рµ С‚РµРєСѓС‰РµР№
+    int* newMass = new int[newCap];  // РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РјР°СЃСЃРёРІР° СЃ РЅРѕРІРѕР№ РІРјРµСЃС‚РёРјРѕСЃС‚СЊСЋ
+    for (int i = 0; i < length; ++i) newMass[i] = data[i];  // РљРѕРїРёСЂСѓРµС‚ СЌР»РµРјРµРЅС‚С‹ РёР· СЃС‚Р°СЂРѕРіРѕ РјР°СЃСЃРёРІР° РІ РЅРѕРІС‹Р№
+    delete[] data;      // РћСЃРІРѕР±РѕР¶РґР°РµС‚ РїР°РјСЏС‚СЊ СЃС‚Р°СЂРѕРіРѕ РјР°СЃСЃРёРІР°
+    data = newMass;     // РћР±РЅРѕРІР»СЏРµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅРѕРІС‹Р№ РјР°СЃСЃРёРІ
+    capacity = newCap;  // РћР±РЅРѕРІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РІРјРµСЃС‚РёРјРѕСЃС‚Рё
 }
 
-// Конструктор копирования
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 Vector::Vector(const Vector& old) : data(nullptr), length(old.length), capacity(old.capacity) {
     if (capacity) {
         data = new int[capacity];
-        for (int i = 0; i < length; ++i) data[i] = old.data[i]; // Копирует элементы из заданого вектора
+        for (int i = 0; i < length; ++i) data[i] = old.data[i]; // РљРѕРїРёСЂСѓРµС‚ СЌР»РµРјРµРЅС‚С‹ РёР· Р·Р°РґР°РЅРѕРіРѕ РІРµРєС‚РѕСЂР°
     }
 }
 
-// Оператор присваивания
+// РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 Vector& Vector::operator=(const Vector& old) {
-    if (this == &old) return *this;  // Проверяет на самоприсваивание
-    delete[] data;                   // Освобождает текущие данные
+    if (this == &old) return *this;  // РџСЂРѕРІРµСЂСЏРµС‚ РЅР° СЃР°РјРѕРїСЂРёСЃРІР°РёРІР°РЅРёРµ
+    delete[] data;                   // РћСЃРІРѕР±РѕР¶РґР°РµС‚ С‚РµРєСѓС‰РёРµ РґР°РЅРЅС‹Рµ
     length = old.length;
     capacity = old.capacity;
-    data = capacity ? new int[capacity] : nullptr;          // Выделяет новую память
-    for (int i = 0; i < length; ++i) data[i] = old.data[i]; // Копирует элементы
+    data = capacity ? new int[capacity] : nullptr;          // Р’С‹РґРµР»СЏРµС‚ РЅРѕРІСѓСЋ РїР°РјСЏС‚СЊ
+    for (int i = 0; i < length; ++i) data[i] = old.data[i]; // РљРѕРїРёСЂСѓРµС‚ СЌР»РµРјРµРЅС‚С‹
     return *this;
 }
 
-// Деструктор
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 Vector::~Vector() { delete[] data; }
 
-// Методы доступа:
-int Vector::size() const { return length; }         // Возвращает текущий размер
-bool Vector::empty() const { return length == 0; }  // Проверяет на пустоту
+// РњРµС‚РѕРґС‹ РґРѕСЃС‚СѓРїР°:
+int Vector::size() const { return length; }         // Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ
+bool Vector::empty() const { return length == 0; }  // РџСЂРѕРІРµСЂСЏРµС‚ РЅР° РїСѓСЃС‚РѕС‚Сѓ
 
-// Операторы доступа к элементам:
-int& Vector::operator[](int i) { return data[i]; }              // Для изменения
-const int& Vector::operator[](int i) const { return data[i]; }  // Для чтения
+// РћРїРµСЂР°С‚РѕСЂС‹ РґРѕСЃС‚СѓРїР° Рє СЌР»РµРјРµРЅС‚Р°Рј:
+int& Vector::operator[](int i) { return data[i]; }              // Р”Р»СЏ РёР·РјРµРЅРµРЅРёСЏ
+const int& Vector::operator[](int i) const { return data[i]; }  // Р”Р»СЏ С‡С‚РµРЅРёСЏ
 
-// Добавление элемента в конец
+// Р”РѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ РєРѕРЅРµС†
 void Vector::push_back(int add) {
-    if (length == capacity) reserve(capacity ? capacity * 2 : 1);  // Увеличивает вместимость при необходимости
-    data[length++] = add;  // Добавляет элемент и увеличивает длину
+    if (length == capacity) reserve(capacity ? capacity * 2 : 1);  // РЈРІРµР»РёС‡РёРІР°РµС‚ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё
+    data[length++] = add;  // Р”РѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ Рё СѓРІРµР»РёС‡РёРІР°РµС‚ РґР»РёРЅСѓ
 }
 
-// Удаление последнего элемента
+// РЈРґР°Р»РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°
 void Vector::pop_back() { if (length) --length; }
