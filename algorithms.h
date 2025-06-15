@@ -1,5 +1,10 @@
-﻿#include "VectorStack.h"
-#include "iostream"
+#include "VectorStack.h"
+#include <iostream>
+
+using namespace std;
+
+// Глобальная переменная для управления подробным логированием
+extern bool enableDetailedLogging; // Плохое действие, но чтобы сразу определить во всех файлах
 
 /* Функция выводит информацию о перемещении элемента между стеками
  * @param индекс стека-источника
@@ -12,7 +17,10 @@ void printAction(int from, int to, int value);
  * @param вектор стеков для вывода
  * @param дополнительное сообщение для вывода перед состоянием стеков
  */
-void printAll(const VectorStack& stacks, const std::string& message = "");
+void printAll(const VectorStack& stacks, const string& prefix = "");
+
+// Как и прошлое, просто пришлось дублировать из-за логирования, чтобы можно было выводить результат
+void printAllResult(const VectorStack& stacks);
 
 /* Функция чтения начального состояния стеков из входного потока
  * @return вектор стеков с начальным состоянием
