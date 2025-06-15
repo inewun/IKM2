@@ -1,10 +1,14 @@
-#include "VectorStack.h"
+﻿#include "VectorStack.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
-// Глобальная переменная для управления подробным логированием
-extern bool enableDetailedLogging; // Плохое действие, но чтобы сразу определить во всех файлах
+// Объявление внешней переменной для логирования
+extern std::ofstream logFile;
+
+// Флаг для включения/выключения подробного логирования
+extern bool enableDetailedLogging;
 
 /* Функция выводит информацию о перемещении элемента между стеками
  * @param индекс стека-источника

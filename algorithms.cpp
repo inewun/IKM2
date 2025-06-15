@@ -1,9 +1,11 @@
-#include "algorithms.h"
+﻿#include "algorithms.h"
 #include "input_validator.h"
 #include <iostream>
+#include <fstream>
 
-// Флаг для включения/выключения подробного логирования
-bool enableDetailedLogging = false;
+// Объявление внешних переменных
+extern std::ofstream logFile;
+extern bool enableDetailedLogging;
 
 /* Функция выводит информацию о перемещении элемента между стеками
  * @param индекс стека-источника
@@ -13,6 +15,7 @@ bool enableDetailedLogging = false;
 void printAction(int from, int to, int value) {
     // Формат вывода: "<from> -> <to>"
     std::cout << from + 1 << " -> " << to + 1 << " (" << value << ")" << '\n';
+    logFile << from + 1 << " -> " << to + 1 << " (" << value << ")\n";
 }
 
 
@@ -24,31 +27,53 @@ void printAll(const VectorStack& stacks, const std::string& message) {
     if (!enableDetailedLogging) return;
 
     std::cout << "\n" << message << "\n";
-    for (int i = 0; i < stacks.size(); ++i) {
-        std::cout << "Стопка " << (i + 1) << ": ";
-        Stack temp = stacks[i];
-        while (!temp.empty()) {
-            std::cout << temp.top() << " ";
-            temp.pop();
+    if (logFile.is_open()) {
+        logFile << "\n" << message << "\n";
+        for (int i = 0; i < stacks.size(); ++i) {
+            std::cout << "Стопка " << (i + 1) << ": ";
+            logFile << "Стопка " << (i + 1) << ": ";
+            Stack temp = stacks[i];
+            while (!temp.empty()) {
+                std::cout << temp.top() << " ";
+                logFile << temp.top() << " ";
+                temp.pop();
+            }
+            std::cout << "\n";
+            logFile << "\n";
         }
         std::cout << "\n";
+        logFile << "\n";
+        logFile.flush();  // Принудительно записываем данные в файл
     }
-    std::cout << "\n";
+    else {
+        std::cout << "Ошибка: файл логов не открыт!\n";
+    }
 }
 
 // Доблирование для вывода в результат
 void printAllResult(const VectorStack& stacks) {
     cout << "\n";
-    for (int i = 0; i < stacks.size(); ++i) {
-        std::cout << "Стопка " << (i + 1) << ": ";
-        Stack temp = stacks[i];
-        while (!temp.empty()) {
-            std::cout << temp.top() << " ";
-            temp.pop();
+    if (logFile.is_open()) {
+        logFile << "\n";
+        for (int i = 0; i < stacks.size(); ++i) {
+            std::cout << "Стопка " << (i + 1) << ": ";
+            logFile << "Стопка " << (i + 1) << ": ";
+            Stack temp = stacks[i];
+            while (!temp.empty()) {
+                std::cout << temp.top() << " ";
+                logFile << temp.top() << " ";
+                temp.pop();
+            }
+            std::cout << "\n";
+            logFile << "\n";
         }
         std::cout << "\n";
+        logFile << "\n";
+        logFile.flush();  // Принудительно записываем данные в файл
     }
-    std::cout << "\n";
+    else {
+        std::cout << "Ошибка: файл логов не открыт!\n";
+    }
 }
 
 
